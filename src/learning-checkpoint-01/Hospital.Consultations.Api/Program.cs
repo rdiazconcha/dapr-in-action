@@ -21,7 +21,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers();
 app.MapSubscribeHandler();
+app.UseCloudEvents();
+app.MapControllers();
 
 app.Run();

@@ -29,10 +29,13 @@ public class ConsultationsController(ConsultationsDbContext dbContext) : Control
 
 
     [Topic("pubsub", "patients")]
+    [HttpPost]
     public async Task<IActionResult> OnPatientCreated(PatientCreated patientCreated)
     {
-        var patient = new Patient(patientCreated.Id, patientCreated.FirstName, patientCreated.LastName);
-        await dbContext.Patients.AddAsync(patient);
+        var newPatient = new Patient(patientCreated.Id,
+                                     patientCreated.FirstName,
+                                     patientCreated.LastName);
+        await dbContext.Patients.AddAsync(newPatient);
         await dbContext.SaveChangesAsync();
         return Ok();
     }

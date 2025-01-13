@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Consultations", "Hospital.Consultations\Hospital.Consultations.csproj", "{3A6CEBDF-291B-47E3-85CC-F3EA1369B3B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Patients", "Hospital.Patients\Hospital.Patients.csproj", "{A13ACD3D-ACD3-4533-89F6-BD7374D20B81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A6CEBDF-291B-47E3-85CC-F3EA1369B3B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6CEBDF-291B-47E3-85CC-F3EA1369B3B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6CEBDF-291B-47E3-85CC-F3EA1369B3B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6CEBDF-291B-47E3-85CC-F3EA1369B3B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13ACD3D-ACD3-4533-89F6-BD7374D20B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13ACD3D-ACD3-4533-89F6-BD7374D20B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13ACD3D-ACD3-4533-89F6-BD7374D20B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13ACD3D-ACD3-4533-89F6-BD7374D20B81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
