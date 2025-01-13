@@ -1,3 +1,4 @@
+using Dapr.Client;
 using Hospital.Patients.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,8 @@ namespace Hospital.Patients.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PatientsController(PatientsDbContext dbContext) : ControllerBase
+public class PatientsController(PatientsDbContext dbContext,
+                                DaprClient daprClient) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<int>> Create(NewPatient newPatient)
@@ -14,7 +16,10 @@ public class PatientsController(PatientsDbContext dbContext) : ControllerBase
         var patient = newPatient.ToPatient();
         await dbContext.Patients.AddAsync(patient);
         await dbContext.SaveChangesAsync();
-
+        await daprClient.PublishEventAsync("pubsub", "patients",
+            new PatientCreated(patient.Id,
+                               patient.FirstName,
+                               patient.LastName));
         return Ok(patient.Id);
     }
 
@@ -37,3 +42,5 @@ public record NewPatient(string FirstName, string LastName)
         };
     }
 }
+
+public record PatientCreated(int Id, string FirstName, string LastName);

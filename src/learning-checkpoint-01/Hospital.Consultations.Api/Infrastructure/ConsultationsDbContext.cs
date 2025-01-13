@@ -7,6 +7,7 @@ public class ConsultationsDbContext(DbContextOptions<ConsultationsDbContext> opt
     public DbSet<Specialty> Specialties { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Consultation> Consultations { get; set; }
+    public DbSet<Patient> Patients { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +23,10 @@ public class ConsultationsDbContext(DbContextOptions<ConsultationsDbContext> opt
                 new Doctor() { Id = 1, Name = "House", SpecialtyId = 1 },
                 new Doctor() { Id = 2, Name = "Strange", SpecialtyId = 2 }
             );
+
+        modelBuilder.Entity<Patient>()
+            .Property(p => p.Id)
+            .ValueGeneratedNever();
     }
 }
 
@@ -43,6 +48,8 @@ public class Doctor
     public int SpecialtyId { get; set; }
     public Specialty Specialty { get; set; }
 }
+
+public record Patient(int Id, string FirstName, string LastName);
 
 public static class ConsultationsDbContextExtensions
 {

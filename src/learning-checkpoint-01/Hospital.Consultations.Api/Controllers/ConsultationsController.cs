@@ -1,5 +1,7 @@
+using Dapr;
 using Hospital.Consultations.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Consultations.Api.Controllers;
 
@@ -24,6 +26,23 @@ public class ConsultationsController(ConsultationsDbContext dbContext) : Control
         await dbContext.SaveChangesAsync();
         return Ok(consultation);
     }
+
+
+    [Topic("pubsub", "patients")]
+    public async Task<IActionResult> OnPatientCreated(PatientCreated patientCreated)
+    {
+        var patient = new Patient(patientCreated.Id, patientCreated.FirstName, patientCreated.LastName);
+        await dbContext.Patients.AddAsync(patient);
+        await dbContext.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpGet("patients")]
+    public async Task<IActionResult> GetPatients()
+    {
+        var all = await dbContext.Patients.ToListAsync();
+        return Ok(all);
+    }
 }
 
 public record StartConsultation(int PatientId, int DoctorId)
@@ -41,3 +60,5 @@ public record StartConsultation(int PatientId, int DoctorId)
 }
 
 public record EndConsultation(int Id);
+
+public record PatientCreated(int Id, string FirstName, string LastName);
