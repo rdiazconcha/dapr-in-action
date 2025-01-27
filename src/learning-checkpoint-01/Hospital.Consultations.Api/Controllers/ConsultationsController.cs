@@ -33,8 +33,7 @@ public class ConsultationsController(ConsultationsDbContext dbContext) : Control
     public async Task<IActionResult> OnPatientCreated(PatientCreated patientCreated)
     {
         var newPatient = new Patient(patientCreated.Id,
-                                     patientCreated.FirstName,
-                                     patientCreated.LastName);
+                                     patientCreated.CreatedAt);
         await dbContext.Patients.AddAsync(newPatient);
         await dbContext.SaveChangesAsync();
         return Ok();
@@ -48,7 +47,7 @@ public class ConsultationsController(ConsultationsDbContext dbContext) : Control
     }
 }
 
-public record StartConsultation(int PatientId, int DoctorId)
+public record StartConsultation(Guid PatientId, int DoctorId)
 {
     public Consultation ToConsultation()
     {
@@ -64,4 +63,4 @@ public record StartConsultation(int PatientId, int DoctorId)
 
 public record EndConsultation(int Id);
 
-public record PatientCreated(int Id, string FirstName, string LastName);
+public record PatientCreated(Guid Id, DateTime CreatedAt);

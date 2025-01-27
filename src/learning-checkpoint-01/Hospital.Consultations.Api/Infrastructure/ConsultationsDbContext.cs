@@ -35,7 +35,7 @@ public class Consultation
     public int Id { get; set; }
     public DateTime StartedAt { get; set; }
     public DateTime? EndedAt { get; set; }
-    public int PatientId { get; set; }
+    public Guid PatientId { get; set; }
     public int DoctorId { get; set; }
 }
 
@@ -49,7 +49,7 @@ public class Doctor
     public Specialty Specialty { get; set; }
 }
 
-public record Patient(int Id, string FirstName, string LastName);
+public record Patient(Guid Id, DateTime CreatedAt);
 
 public static class ConsultationsDbContextExtensions
 {

@@ -18,8 +18,7 @@ public class PatientsController(PatientsDbContext dbContext,
         await dbContext.SaveChangesAsync();
         await daprClient.PublishEventAsync("pubsub", "patients",
             new PatientCreated(patient.Id,
-                               patient.FirstName,
-                               patient.LastName));
+                               DateTime.UtcNow));
         return Ok(patient.Id);
     }
 
@@ -43,4 +42,4 @@ public record NewPatient(string FirstName, string LastName)
     }
 }
 
-public record PatientCreated(int Id, string FirstName, string LastName);
+public record PatientCreated(Guid Id, DateTime CreatedAt);
