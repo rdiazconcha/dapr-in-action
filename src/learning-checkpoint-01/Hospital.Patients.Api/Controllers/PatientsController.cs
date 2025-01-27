@@ -23,10 +23,21 @@ public class PatientsController(PatientsDbContext dbContext,
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAll()
     {
         var all = await dbContext.Patients.ToListAsync();
         return Ok(all);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var patient = await dbContext.Patients.FindAsync(id);
+        if (patient == null)
+        {
+            return NotFound();
+        }
+        return Ok(patient);
     }
 }
 

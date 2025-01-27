@@ -7,7 +7,7 @@ public class ConsultationsDbContext(DbContextOptions<ConsultationsDbContext> opt
     public DbSet<Specialty> Specialties { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Consultation> Consultations { get; set; }
-    public DbSet<Patient> Patients { get; set; }
+    public DbSet<PatientCreated> Patients { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,7 +24,7 @@ public class ConsultationsDbContext(DbContextOptions<ConsultationsDbContext> opt
                 new Doctor() { Id = 2, Name = "Strange", SpecialtyId = 2 }
             );
 
-        modelBuilder.Entity<Patient>()
+        modelBuilder.Entity<PatientCreated>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
     }
@@ -49,7 +49,8 @@ public class Doctor
     public Specialty Specialty { get; set; }
 }
 
-public record Patient(Guid Id, DateTime CreatedAt);
+public record PatientCreated(Guid Id, DateTime CreatedAt);
+public record Patient(Guid Id, string FirstName, string LastName);
 
 public static class ConsultationsDbContextExtensions
 {
